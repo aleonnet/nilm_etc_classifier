@@ -1,0 +1,150 @@
+@font-face{
+	font-family:"Nanum Gothic Bold";
+	src:url('../fonts/NanumGothicBold.eot');
+	src:url('../fonts/NanumGothicBold.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/NanumGothicBold.woff') format('woff'),
+	url('../fonts/NanumGothicBold.ttf') format('truetype');
+	url('/fonts/NanumGothicBold.svg#NanumGothicBold') format('svg')
+	src:local(※), url('/fonts/NanumGothicBold.woff') format('woff');
+}
+
+html {	
+    background-image: url("../picture/footer_lodyas.png");
+}
+
+.ml-title {
+    background-color: #222;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+
+#page-wrapper {
+	background-image: url("../picture/footer_lodyas.png");
+	background-repeat: repeat;
+}
+
+.ml-panel-title {
+	font-family:'Nanum Gothic Bold';
+	font-size:1.7em;
+}
+
+.col-lg-3, .col-lg-5, .col-lg-4, .col-lg-8, .col-lg-12 {
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+.flot-chart-content {
+	height: 100%;
+	width: 100%;
+}
+
+.page-header {
+	margin: 10px 0px 10px;
+}
+
+.panel {
+	margin-bottom: 15px;
+	border: 0px solid transparent;
+}
+
+.panel-body {
+	background-color: #363A43;
+	height: 90%;
+}
+
+
+//over 1200 height
+.ml-chart {
+	height: 400px;
+}
+
+.panel {
+	height: 480px;
+}
+
+
+
+@media screen and (max-height:900px) {
+	.ml-chart {
+		height: 200px;
+	}
+
+	.panel {
+		height: 270px;
+	}
+}
+
+@media screen and (max-height:1200px) {
+	.ml-chart {
+	height: 290px;
+	}
+
+	.panel {
+		height: 375px;
+	}
+}
+
+.loading-anim {
+    background-color: #222;
+	font-size: 2em;
+    text-align: center;
+}
+
+.anim {
+	margin-right: 1em;
+}
+
+.shaker {
+    color: #EDC95B;
+	animation-name: shake;
+    animation-duration: 600ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;   
+}
+@keyframes shake {
+    from { -moz-transform: translateX(0px); }
+    to { -moz-transform: translateX(3px); }
+}
+
+.spinner {
+    color: #6D93B9;
+
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 4000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 4000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 4000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

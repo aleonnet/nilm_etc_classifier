@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+	<!-- MDB -->
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+	<!-- MDB -->
+	
+	
+    <title>소비전력기반 가전기기 분류</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/ml-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->   
+	
+    
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="ml-title contsainer">
+            <div class="row" >
+                <div class="col-lg-6">
+                    <a class="" href="index.html" style="color: #ffffff;font-family:'Nanum Gothic Bold'; font-size:2.5em">
+                        <i class="fa fa-bolt"></i> 소비전력기반 가전기기 분류                    
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <div class="loading-anim center-block"  style="color: #ffffff;font-family:'Nanum Gothic Bold'; font-size:2.5em">
+                        <i class="fa fa-bolt shaker anim"></i><i class="fa fa-arrow-right anim"></i><i class="fa fa-refresh spinner anim"></i>
+                        <i class="fa fa-arrow-right anim"></i><i class="fa fa-database anim"></i>
+                    </div> 
+                </div>
+
+            </div>
+        </div>
+
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">   
+                <!-- Flot Charts -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="panel panel-black">
+                            <div class="panel-heading">
+                                <h3 class="panel-title ml-panel-title"><i class="fa fa-area-chart fa-fw"></i> 실시간 전력 사용량 <!--<i id="curTime"></i>--></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart ml-chart">
+                                    <div class="flot-chart-content" id="flot-moving-line-chart">
+									<canvas id="lineChart"></canvas>
+									</div>
+									<div style="color:white">
+									<p id="mot" style="float: left;width:33%;text-align:left;padding-left:0px">hh:mm:ss</p>
+									<p id="hai" style="display:inline-block;width:33%;text-align:center;padding-left:10px;">hh:mm:ss</p>
+									<p id="ba" style="float: right;width:33%;text-align:right;padding-right:0px;">hh:mm:ss</p>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-black">
+                            <div class="panel-heading">
+                                <h3 class="panel-title ml-panel-title"><i class="fa fa-table"></i> 사용중인 가전기기 </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive ml-chart">
+                                    <table id="applTable" class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr style="background-color:#2b2b2b; color:#fff">
+                                                <th>ID</th>
+                                                <th>가전기기명</th>
+                                                <th>소비전력(Watt)</th>
+                                                <th>사용률(%)</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <div class="row">    
+                    <div class="col-lg-5">
+                        <div class="panel panel-black">
+                            <div class="panel-heading">
+                                <h3 class="panel-title ml-panel-title"><i class="fa fa-bar-chart"></i> 주간 사용률 </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="ml-chart">
+                                    <div class="flot-chart-content" id="chart_div">
+									<canvas id="barChart"></canvas>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+
+                    <div class="col-lg-3">
+                        <div class="panel panel-black">
+                            <div class="panel-heading">
+                                <i class="fa fa-pie-chart" style="display:inline; margin-right:5px"></i><h3 class="panel-title ml-panel-title" id="total_power" style="display:inline"> &nbsp 어제 사용량 : 275.874kW </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart ml-chart">
+                                    <div class="flot-chart-content" id="flot-pie-chart">
+									<canvas id="pieChart"></canvas>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="panel panel-black">
+                            <div class="panel-heading">
+                                <h3 class="panel-title ml-panel-title"><i class="fa fa-line-chart fa-fw"></i> 요일별 전력 사용 패턴 변화 </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart ml-chart">
+                                    <div class="flot-chart-content" id="flot-line-chart">
+									<canvas id="radarChart"></canvas>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+				
+                <!-- /.row -->           
+
+                
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+	
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>    
+
+    
+
+    
+
+    <!-- Flot Charts JavaScript -->
+    <script src="js/excanvas.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.axislabels.js"></script>    
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/flot-data-ml.js"></script>
+
+    <!-- google chart api javascript -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="js/plugins/jsapi/jsapi-data-ml.js"></script>
+
+    <!-- ml javascript -->
+    <script src="js/plugins/ml/onetime.js"></script>
+    <script src="js/plugins/ml/realtime.js"></script>
+	
+	<!-- NBM -->
+	<!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+	<!-- NBM -->
+
+    <script type="text/javascript">
+        // change Timer
+        function showTimer(){
+            var dd = new Date();
+            var nn = dd.getHours();
+            var mm = dd.getMinutes();
+            var ss = dd.getSeconds();
+            
+            document.getElementById("ba").innerHTML =  nn+":"+ mm + ":"+ ss;
+            if(parseInt(mm)>29)
+             document.getElementById("mot").innerHTML= nn+":"+(parseInt(mm)-30)+":"+ss;
+             else{
+                document.getElementById("mot").innerHTML= (parseInt(nn)-1)+":"+(parseInt(mm)+30)+":"+ss;
+             }
+            if(parseInt(mm)>15)
+             document.getElementById("hai").innerHTML= nn+":"+(parseInt(mm)-15)+":"+ss;
+             else{
+                document.getElementById("hai").innerHTML= (parseInt(nn)-1)+":"+(parseInt(mm)+45)+":"+ss;
+             }
+         }
+
+        showTimer();
+        updateRealtime();
+        
+        setInterval(function() {
+            showTimer();
+            updateRealtime();            
+        }, 1000); // refresh page
+
+        $(window).resize( function() {
+            window.location.href = window.location.href;
+        });
+    </script>
+
+    
+	<script type="text/javascript">
+		//line
+		
+		var ctxL = document.getElementById("lineChart").getContext('2d');
+		var myLineChart = new Chart(ctxL, {
+			type: 'line',
+			data: {
+				labels: ["January", "February", "March", "April", "May", "June", "July"],
+				datasets: [
+					{
+						label: "My First dataset",
+						fillColor: "rgba(220,220,220,0.2)",
+						strokeColor: "rgba(220,220,220,1)",
+						pointColor: "rgba(220,220,220,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: [65, 59, 80, 81, 56, 55, 40]
+					},
+					{
+						label: "My Second dataset",
+						fillColor: "rgba(151,187,205,0.2)",
+						strokeColor: "rgba(151,187,205,1)",
+						pointColor: "rgba(151,187,205,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(151,187,205,1)",
+						data: [28, 48, 40, 19, 86, 27, 90]
+					}
+				]
+			},
+			options: {
+				responsive: true
+			}    
+		});
+		
+		//pie
+		var ctxP = document.getElementById("pieChart").getContext('2d');
+		var myPieChart = new Chart(ctxP, {
+			type: 'pie',
+			data: {
+				labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+				datasets: [
+					{
+						data: [300, 50, 100, 40, 120],
+						backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+						hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+					}
+				]
+			},
+			options: {
+				responsive: true
+			}    
+		});
+		
+		
+		//radar
+		var ctxR = document.getElementById("radarChart").getContext('2d');
+		var myRadarChart = new Chart(ctxR, {
+			type: 'radar',
+			data: {
+				labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+				datasets: [
+					{
+						label: "My First dataset",
+						fillColor: "rgba(220,220,220,0.2)",
+						strokeColor: "rgba(220,220,220,1)",
+						pointColor: "rgba(220,220,220,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: [65, 59, 90, 81, 56, 55, 40]
+					},
+					{
+						label: "My Second dataset",
+						fillColor: "rgba(151,187,205,0.2)",
+						strokeColor: "rgba(151,187,205,1)",
+						pointColor: "rgba(151,187,205,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(151,187,205,1)",
+						data: [28, 48, 40, 19, 96, 27, 100]
+					}
+				]
+			},
+			options: {
+				responsive: true
+			}    
+		});
+		
+		//bar
+		var ctxB = document.getElementById("barChart").getContext('2d');
+		var myBarChart = new Chart(ctxB, {
+			type: 'bar',
+			data: {
+				labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+				datasets: [{
+					label: '# of Votes',
+					data: [12, 19, 3, 5, 2, 3],
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)'
+					],
+					borderColor: [
+						'rgba(255,99,132,1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			optionss: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+
+    </script>
+	
+
+</body>
+
+</html>
